@@ -120,4 +120,4 @@ set.shortmess = vim.o.shortmess .. 'c'
 set.pumheight = 10
 
 -- always show tabline
-set.showtabline = 2
+set.showtabline = 1

@@ -30,9 +30,11 @@ local highlight_groups = {
   Pmenu                   = { bg = colors.gray },
 
   -- 消息
-  MsgArea                 = { bg = colors.black },
+  MsgArea                 = { bg = colors.darkgray },
   ErrorMsg                = { fg = colors.red },
   WarningMsg              = { fg = colors.yellow },
+  MoreMsg                 = { fg = colors.silver },
+  Question                = { fg = colors.silver },
   DiagnosticError         = "ErrorMsg",
   DiagnosticWarn          = "WarningMsg",
   DiagnosticInfo          = { fg = colors.white },
@@ -97,7 +99,7 @@ local highlight_groups = {
   PreProc                 = { fg = colors.red },
   Macro                   = "@macro",
   ["@lsp.type.macro"    ] = { link = "@lsp" },
-  ["@lsp.type.type"    ] = { link = "@lsp" },
+  ["@lsp.type.type"     ] = { link = "@lsp" },
   ["@lsp.type.class"    ] = { link = "@lsp" },
   ["@delimiter"]          = { fg = colors.white },
   ["@tag"               ] = { fg = colors.lime },
