@@ -105,7 +105,8 @@ keymap("n", "<A-+>", "<C-w>+", noremap)
 keymap("n", "<A-->", "<C-w>-", noremap)
 
 -- LSP
-keymap("n", "K", vim.lsp.buf.hover, noremap)
+keymap("n", "K", function() vim.lsp.buf.hover() end, noremap)
+keymap("n", "<F2>", function() vim.lsp.buf.rename() end, noremap)
 
 keymap("v", "<", "<gv", noremap)
 keymap("v", ">", ">gv", noremap)
