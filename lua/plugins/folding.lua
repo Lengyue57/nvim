@@ -5,36 +5,34 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
-local handler = function(virtText, lnum, endLnum, width, truncate)
-  local newVirtText = {}
-  local suffix = (' …  %d lines'):format(endLnum - lnum)
-  local sufWidth = vim.fn.strdisplaywidth(suffix)
-  local targetWidth = width - sufWidth
-  local curWidth = 0
-  for _, chunk in ipairs(virtText) do
-    local chunkText = chunk[1]
-    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-    if targetWidth > curWidth + chunkWidth then
-      table.insert(newVirtText, chunk)
+local handler = function(virt_text, lnum, end_lnum, width, truncate)
+  local new_virt_text = {}
+  local suffix = (' …  %d lines'):format(end_lnum - lnum)
+  local target_width = width - vim.fn.strdisplaywidth(suffix)
+  local cur_width = 0
+  for _, chunk in ipairs(virt_text) do
+    local chunk_text = chunk[1]
+    local hl_group = chunk[2]
+    local chunk_width = vim.fn.strdisplaywidth(chunk_text)
+    if target_width > cur_width + chunk_width then
+      table.insert(new_virt_text, chunk)
+      cur_width = cur_width + chunk_width
     else
-      chunkText = truncate(chunkText, targetWidth - curWidth)
-      local hlGroup = chunk[2]
-      table.insert(newVirtText, {chunkText, hlGroup})
-      chunkWidth = vim.fn.strdisplaywidth(chunkText)
-      -- str width returned from truncate() may less than 2nd argument, need padding
-      if curWidth + chunkWidth < targetWidth then
-        suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-      end
+      chunk_text = truncate(chunk_text, target_width - cur_width)
+      table.insert(new_virt_text, {chunk_text, hl_group})
+      chunk_width = vim.fn.strdisplaywidth(chunk_text)
+      -- str width returned from truncate() may less than (target_width - cur_width), need padding
+      suffix = suffix .. (' '):rep(target_width - cur_width - chunk_width)
       break
     end
-    curWidth = curWidth + chunkWidth
   end
-  table.insert(newVirtText, {suffix, 'MoreMsg'})
-  return newVirtText
+  table.insert(new_virt_text, {suffix, 'MoreMsg'})
+  return new_virt_text
 end
 
 return {
   'kevinhwang91/nvim-ufo',
+  event = "VeryLazy",
   dependencies = { "kevinhwang91/promise-async" },
   commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
   config = function()
