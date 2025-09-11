@@ -9,14 +9,16 @@ if vim.g.neovide then
   -- 设置字体
   if vim.fn.has("win64") ~= 0 then
     opt.guifont = {
+      "Sarasa Mono Slab SC",
       "IosevkaSlab Nerd Font",
       "Source Han Sans SC",
       ":h10"
     }
   else
     opt.guifont = {
+      "Sarasa Mono Slab SC",
       "IosevkaSlab Nerd Font",
-      "Source Han Sans CN",
+      "Source Han Sans SC",
       ":h9"
     }
   end
@@ -78,7 +80,7 @@ opt.autoread = true
 opt.wrap = false
 
 -- 行结尾可以跳到下一行
-opt.whichwrap = '<,>,[,],h,l'
+opt.whichwrap = "<,>,[,],h,l,b,s"
 
 -- 允许隐藏被修改过的buffer
 opt.hidden = true
@@ -119,5 +121,5 @@ opt.wildmenu = true
 opt.shortmess = vim.o.shortmess .. 'c'
 opt.pumheight = 10
 
--- always show tabline
+-- 是否显示标签栏
 opt.showtabline = 1

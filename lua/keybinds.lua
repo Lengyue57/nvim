@@ -5,6 +5,9 @@ local noremap = { noremap = true, silent = true }
 vim.g.mapleader=" "
 vim.g.maplocalleader="\\"
 
+vim.opt.timeout = false
+vim.opt.langmap = "，。《》（）【】「」；：;\\,.<>()[]{}\\;:"
+
 keymap("t", "<ESC>", "<C-\\><C-n>", noremap)
 keymap("", "<F8>", "<CMD>noh<CR>", noremap)
 keymap("", "<C-c>", "<C-\\><C-n>", noremap)
@@ -13,8 +16,8 @@ keymap("!", "<C-c>", "<C-\\><C-n>", noremap)
 -- 移动
 keymap("n", "<C-e>", "<C-e><C-e><C-e>0", noremap)
 keymap("n", "<C-y>", "<C-y><C-y><C-y>0", noremap)
-keymap("n", "<C-u>", "<C-u>M0", noremap)
-keymap("n", "<C-d>", "<C-d>M0", noremap)
+keymap("n", "<C-u>", "<CMD>keepjumps norm! <C-u>M0<CR>", noremap)
+keymap("n", "<C-d>", "<CMD>keepjumps norm! <C-d>M0<CR>", noremap)
 keymap("n", "G", "Gzz0", noremap)
 keymap("n", "{", "{zz", noremap)
 keymap("n", "}", "}zz", noremap)
@@ -44,13 +47,13 @@ keymap("i", "<A-Down>", "<Down>", opt)
 keymap("i", "<A-Left>", "<Left>", opt)
 keymap("i", "<A-Right>", "<Right>", opt)
 keymap("i", "<A-w>", "<C-o>w", noremap)
-keymap("i", "<A-W)", "<C-o>W", noremap)
+keymap("i", "<A-W>", "<C-o>W", noremap)
 keymap("i", "<A-b>", "<C-o>b", noremap)
 keymap("i", "<A-B>", "<C-o>B", noremap)
 keymap("i", "<A-e>", "<C-o>e<Right>", noremap)
 keymap("i", "<A-E>", "<C-o>E<Right>", noremap)
-keymap("i", "<C-<Left>>", "<C-o>b", noremap)
-keymap("i", "<C-<Right>>", "<C-o>e<Right>", noremap)
+keymap("i", "<C-Left>", "<C-o>b", noremap)
+keymap("i", "<C-Right>", "<C-o>e<Right>", noremap)
 
 keymap("i", "<A-/>", "<C-o>/", noremap)
 keymap("i", "<A-?>", "<C-o>?", noremap)
@@ -59,9 +62,9 @@ keymap("i", "<A-?>", "<C-o>?", noremap)
 keymap("n", "/", "/", noremap)
 keymap("n", "?", "?", noremap)
 
+-- 撤銷与重做
 keymap("n", "u", "<CMD>undo<CR>", noremap)
 keymap("n", "U", "<CMD>redo<CR>", noremap)
-
 
 keymap("i", "<A-a>", "<C-o>A", noremap)
 keymap("i", "<A-i>", "<C-o>I", noremap)

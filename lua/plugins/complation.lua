@@ -1,95 +1,67 @@
 -- 代码补全配置
 
 return {
-  "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
-  dependencies = {
-    -- 片段来源
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-
-    -- For `vsnip` users.
-    -- { "hrsh7th/cmp-vsnip" },
-    -- { "hrsh7th/vim-vsnip" },
-
-    -- For `luasnip` users.
-    { "L3MON4D3/LuaSnip" },
-    { "saadparwaiz1/cmp_luasnip" },
-
-    -- For `ultisnips` users.
-    -- { "SirVer/ultisnips" },
-    -- { "quangnguyen30192/cmp-nvim-ultisnips" },
-
-    -- For `snippy` users.
-    -- { "dcampos/nvim-snippy" },
-    -- { "rafamadriz/cmp-snippy" },
-
-    { "onsails/lspkind-nvim" },
-    { "rafamadriz/friendly-snippets" },
+  "saghen/blink.cmp",
+  event = {
+    "InsertEnter",
+    "CmdlineEnter",
   },
-  config = function()
-    local cmp = require("cmp")
+  dependencies = { "rafamadriz/friendly-snippets" },
+  opts = {
+    -- See :h blink-cmp-config-keymap for defining your own keymap
+    keymap = {
+      preset = "none",
+      ["<C-,>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<ESC>"] = { "hide", "fallback" },
 
-    cmp.setup {
-      snippet = {
-        expand = function(args)
-          -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-          require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-          -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-          -- require"snippy".expand_snippet(args.body) -- For `snippy` users.
-        end
-      },
-      window = {
-        -- completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-      },
-      sources = cmp.config.sources {
-        { name = "nvim_lsp" },
-        -- { name = "vsnip" }, -- For vsnip users.
-        { name = "luasnip" }, -- For luasnip users.
-        -- { name = "ultisnips" }, --For ultisnips users.
-        -- { name = "snippy" }, -- For snippy users.
-        { name = "buffer" },
-        { name = "path" },
-      },
-      formatting = {
-        format = require("lspkind").cmp_format {
-          with_text = true,
-          maxwidth = 50,
-          before = function(entry, vim_item)
-            vim_item.menu = "[" .. entry.source.name .. "]"
-            return vim_item
-          end
-        },
-      },
-      mapping = {
-        ["<C-,>"] = cmp.mapping.complete(),
-        -- 上一个
-        ["<A-k>"] = cmp.mapping.select_prev_item(),
-        ["<A-Up>"] = cmp.mapping.select_prev_item(),
-        ["<Up>"] = cmp.mapping.select_prev_item(),
-        -- 下一个
-        ["<A-j>"] = cmp.mapping.select_next_item(),
-        ["<A-Down>"] = cmp.mapping.select_next_item(),
-        ["<Down>"] = cmp.mapping.select_next_item(),
-        ["<ESC>"] = cmp.mapping({
-          i = cmp.mapping.abort(),
-          c = cmp.mapping.close(),
-        }),
-        ["<Tab>"] = cmp.mapping.confirm { select = true },
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<CR>"] = cmp.mapping(function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ select = false })
+      ["<Tab>"] = {
+        function(cmp)
+          if cmp.snippet_active() then
+            return cmp.accept()
           else
-            fallback()
+            return cmp.select_and_accept()
           end
-        end, { "i" }),
+        end,
+        "snippet_forward",
+        "fallback"
       },
-    }
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
-    -- require("luasnip.loaders.from_vscode").lazy_load()
-  end,
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "show", "select_next", "fallback" },
+
+      ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+
+      ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+    },
+    appearance = {
+      -- "mono" (default) for "Nerd Font Mono" or "normal" for "Nerd Font"
+      -- Adjusts spacing to ensure icons are aligned
+      nerd_font_variant = "normal"
+    },
+    completion = {
+      documentation = {
+        auto_show = false,
+        window = { border = "rounded" },
+      },
+      menu = { auto_show = false },
+      ghost_text = { enabled = true },
+    },
+    signature = { enabled = true },
+    -- Default list of enabled providers defined so that you can extend it
+    -- elsewhere in your config, without redefining it, due to `opts_extend`
+    sources = {
+      default = { "lsp", "path", "snippets", "buffer" },
+    },
+    -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+    -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+    -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+    --
+    -- See the fuzzy documentation for more information
+    fuzzy = { implementation = "lua" }
+  },
+  opts_extend = { "sources.default" }
 }

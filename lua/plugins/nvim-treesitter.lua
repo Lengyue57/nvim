@@ -28,5 +28,6 @@ return {
         additional_vim_regex_highlighting = false
       },
     }
+    vim.cmd.syntax("off")
   end,
 }

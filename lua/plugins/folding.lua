@@ -36,27 +36,25 @@ return {
   dependencies = { "kevinhwang91/promise-async" },
   commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
   config = function()
-    local ufo = require("ufo")
-    vim.keymap.set("n", "zR", ufo.openAllFolds)
-    vim.keymap.set("n", "zM", ufo.closeAllFolds)
-    vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-    vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-
-    -- Option 2: nvim lsp as LSP client
-    -- Tell the server the capability of foldingRange,
-    -- Neovim hasn't added foldingRange to default capabilities, users must add it manually
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
-    }
+    -- capabilities.textDocument.foldingRange.dynamicRegistration = false,
+    -- capabilities.textDocument.foldingRange.lineFoldingOnly = false,
     vim.lsp.config("*", {
       capabilities = capabilities
     })
 
-    ufo.setup {
+    require("ufo").setup {
       open_fold_hl_timeout = 100,
       fold_virt_text_handler = handler,
+      provider_selector = function(bufnr, filetype, buftype)
+        return {"treesitter", "indent"}
+      end
     }
   end,
+  keys = {
+    { "zR", mode = "n", function() require("ufo").openAllFolds() end, { noremap = true } },
+    { "zM", mode = "n", function() require("ufo").closeAllFolds() end, { noremap = true } },
+    { "zr", mode = "n", function() require("ufo").openFoldsExceptKinds() end, { noremap = true } },
+    { "zm", mode = "n", function() require("ufo").closeFoldsWith() end, { noremap = true } },
+  },
 }

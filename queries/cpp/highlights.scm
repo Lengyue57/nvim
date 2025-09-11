@@ -82,7 +82,7 @@
   (template_function
     (identifier) @function))
 
-(operator_name) @function
+(operator_name) @operator
 
 "operator" @function.builtin
 
@@ -155,9 +155,9 @@
     (identifier) @constructor))
   (#lua-match? @constructor "^%u"))
 
-((call_expression
-  function: (identifier) @constructor)
-  (#lua-match? @constructor "^%u"))
+; ((call_expression
+;   function: (identifier) @constructor)
+;   (#lua-match? @constructor "^%u"))
 
 ((call_expression
   function: (qualified_identifier

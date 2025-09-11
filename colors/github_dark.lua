@@ -15,7 +15,8 @@ local colors = {
 }
 
 local highlight_groups = {
-  NonText                             = { fg = colors.gray },
+  SpecialKey                          = { fg = colors.lightgray },
+	NonText                             = { fg = colors.lightgray },
   Normal                              = { fg = colors.white, bg = colors.darkgray },
   LineNr                              = { fg = colors.silver },
   CursorLine                          = { bg = colors.gray },
@@ -51,7 +52,7 @@ local highlight_groups = {
   TabLine                             = { fg = colors.silver, bg = colors.gray },
   TabLineFill                         = { bg = colors.black },
 
-  Folded                              = { fg = colors.silver, bg = colors.gray },
+  Folded                              = {},
 
   -- Treesitter
   ["@comment"                       ] = { fg = colors.silver },
@@ -75,7 +76,7 @@ local highlight_groups = {
   ["@type.builtin"                  ] = {},
   ["@constructor"                   ] = "@type",
   ["@constant"                      ] = { fg = colors.blue, bold = true },
-  ["@constant.builtin"              ] = { fg = colors.blue, bold = true },
+  ["@constant.builtin"              ] = "@constant",
   ["@boolean"                       ] = { fg = colors.blue },
   ["@number"                        ] = { fg = colors.blue },
   ["@number.float"                  ] = "@number",
@@ -83,7 +84,7 @@ local highlight_groups = {
   ["@string.escape"                 ] = { fg = colors.red },
   ["@character"                     ] = "@string",
   ["@operator"                      ] = { fg = colors.red },
-  ["@namespace"                     ] = {},
+  ["@namespace"                     ] = { fg = colors.white },
   ["@module"                        ] = { fg = colors.white },
   ["@concept"                       ] = { fg = colors.blue },
   Identifier                          = "Normal",
@@ -102,18 +103,30 @@ local highlight_groups = {
   Float                               = "@number.float",
   PreProc                             = { fg = colors.red },
   Macro                               = "@macro",
+  ["@lsp.type.typeParameter"        ] = { link = "@lsp" },
   ["@lsp.type.macro"                ] = { link = "@lsp" },
-  ["@lsp.type.type"                 ] = { link = "@lsp" },
+  ["@lsp.type.type"                 ] = "@type",
   ["@lsp.type.class"                ] = "@type",
+  ["@lsp.type.operator"             ] = { link = "@lsp" },
   ["@lsp.type.concept"              ] = "@concept",
+  ["@lsp.typemod.type.deduced"      ] = "@keyword",
+  ["@lsp.typemod.class.deduced"     ] = "@keyword",
+  ["@lsp.typemod.enum.deduced"      ] = "@keyword",
   ["@lsp.typemod.variable.readonly" ] = "@constant",
   ["@delimiter"                     ] = { fg = colors.white },
-  ["@tag"               ] = { fg = colors.lime },
-  ["@tag.attribute"     ] = { fg = colors.blue },
-  ["@tag.delimiter"     ] = "@delimiter",
-  Tag                     = "@tag",
-  Delimiter               = "@delimiter",
+  ["@tag"                           ] = { fg = colors.lime },
+  ["@tag.builtin"                   ] = {},
+  ["@tag.attribute"                 ] = { fg = colors.blue },
+  ["@tag.delimiter"                 ] = "@delimiter",
+  Tag                                 = "@tag",
+  Delimiter                           = "@delimiter",
 
+  -- css specifiss
+  ["@type.css"                      ] = { fg = colors.blue },
+  ["@type.scss"                     ] = "@type.css",
+  -- json specific
+  ["@property.json"                 ] = { "@variable", fg = colors.lime },
+  ["@property.jsonc"                ] = "@property.json",
   -- mark language specific
   -- xml
   xmlTagName              = "@tag",
