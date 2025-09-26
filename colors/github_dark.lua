@@ -1,18 +1,4 @@
-local colors = {
-  white     = "#e6edf3",
-  silver    = "#8b949e",
-  lightgray = "#262c36",
-  gray      = "#171b22",
-  darkgray  = "#0d1117",
-  black     = "#010409",
-  red       = "#ff7b72",
-  lime      = "#7ee787",
-  blue      = "#79c0ff",
-  purple    = "#d2a8ff",
-  skyblue   = "#a5d6ff",
-  yellow    = "#e3b341",
-  orange    = "#ffa657",
-}
+local colors = require("github_dark").colors
 
 local highlight_groups = {
   SpecialKey                          = { fg = colors.lightgray },
@@ -53,6 +39,10 @@ local highlight_groups = {
   TabLineFill                         = { bg = colors.black },
 
   Folded                              = {},
+
+  -- Diff
+  DiffAdd                             = { bg = colors.darkgreen },
+  DiffDelete                          = { fg = colors.darkgray, bg = colors.darkred },
 
   -- Treesitter
   ["@comment"                       ] = { fg = colors.silver },
