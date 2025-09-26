@@ -7,21 +7,12 @@ opt.fileencodings= "utf8,cp936,gb18030,big5"
 
 if vim.g.neovide then
   -- 设置字体
-  if vim.fn.has("win64") ~= 0 then
-    opt.guifont = {
-      "Sarasa Mono Slab SC",
-      "IosevkaSlab Nerd Font",
-      "Source Han Sans SC",
-      ":h10"
-    }
-  else
-    opt.guifont = {
-      "Sarasa Mono Slab SC",
-      "IosevkaSlab Nerd Font",
-      "Source Han Sans SC",
-      ":h9"
-    }
-  end
+  opt.guifont = {
+    "Sarasa Mono Slab SC",
+    "IosevkaSlab Nerd Font",
+    "Source Han Sans SC",
+    ":h10"
+  }
 
   -- 自动隐藏光标
   vim.g.neovide_hide_mouse_when_typing = true

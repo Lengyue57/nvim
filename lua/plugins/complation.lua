@@ -30,7 +30,13 @@ return {
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-p>"] = { "select_prev", "fallback" },
-      ["<C-n>"] = { "show", "select_next", "fallback" },
+      ["<C-n>"] = {
+        function(cmp)
+          return cmp.show({ initial_selected_item_idx = 2 })
+        end,
+        "select_next",
+        "fallback",
+      },
 
       ["<C-u>"] = { "scroll_documentation_up", "fallback" },
       ["<C-d>"] = { "scroll_documentation_down", "fallback" },
@@ -50,7 +56,10 @@ return {
       menu = { auto_show = false },
       ghost_text = { enabled = true },
     },
-    signature = { enabled = true },
+    signature = {
+      enabled = true,
+      window = { border = "rounded" },
+    },
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
