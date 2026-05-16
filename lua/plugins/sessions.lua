@@ -14,10 +14,10 @@ return {
   config = function()
     local persistence = require("persistence")
     persistence.setup()
-    command("SessionSave", function() persistence.save() end, {})
-    command("SessionList", function() persistence.list() end, {})
-    command("SessionSelect", function() persistence.select() end, {})
-    command("SessionLoad", function() persistence.load() end, {})
+    command("SessionSave",     function() persistence.save()                end, {})
+    command("SessionList",     function() persistence.list()                end, {})
+    command("SessionSelect",   function() persistence.select()              end, {})
+    command("SessionLoad",     function() persistence.load()                end, {})
     command("SessionLoadLast", function() persistence.load({ last = true }) end, {})
   end,
 }

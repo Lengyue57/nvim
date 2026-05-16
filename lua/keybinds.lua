@@ -27,6 +27,14 @@ keymap("", "k", "gk", noremap)
 keymap("", "<Up>",   "g<Up>", noremap)
 keymap("", "<Down>", "g<Down>", noremap)
 
+keymap("", "<S-Up>", "5<UP>", noremap)
+keymap("", "<S-Down>", "5<Down>", noremap)
+keymap("", "K", "0", noremap)
+keymap("", "H", "0", noremap)
+keymap("", "L", "$", noremap)
+keymap("", "<S-Left>", "0", noremap)
+keymap("", "<S-Right>", "$", noremap)
+
 keymap("t", "<A-h>", "<Left>", opt)
 keymap("t", "<A-j>", "<Down>", opt)
 keymap("t", "<A-k>", "<Up>", opt)
@@ -57,10 +65,6 @@ keymap("i", "<C-Right>", "<C-o>e<Right>", noremap)
 
 keymap("i", "<A-/>", "<C-o>/", noremap)
 keymap("i", "<A-?>", "<C-o>?", noremap)
-
--- 搜索不显示提示
-keymap("n", "/", "/", noremap)
-keymap("n", "?", "?", noremap)
 
 -- 撤銷与重做
 keymap("n", "u", "<CMD>undo<CR>", noremap)

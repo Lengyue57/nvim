@@ -30,7 +30,7 @@ local highlight_groups = {
 
   --
   Special                             = { bold = true },
-  Url                                 = { fg = colors.blue, underline = true },
+  Url                                 = { fg = colors.white, underline = true },
   ["@text.uri"                      ] = "Url",
   ["@text.reference"                ] = { fg = colors.blue, underline = true, },
   -- ["@text.literal"                  ] = { bg = colors.gray },
@@ -72,6 +72,8 @@ local highlight_groups = {
   ["@number.float"                  ] = "@number",
   ["@string"                        ] = { fg = colors.skyblue },
   ["@string.escape"                 ] = { fg = colors.red },
+  ["@string.special.url"            ] = "Url",
+  ["@string.special.path"            ] = "Url",
   ["@character"                     ] = "@string",
   ["@operator"                      ] = { fg = colors.red },
   ["@namespace"                     ] = { fg = colors.white },

@@ -8,22 +8,33 @@ local ensure_installed_servers = {
 local servers = {
   enabled = {
     "clangd",
+    "gdscript",
   },
   disabled = {
     "ts_ls",
   },
 }
 
-function on_config()
+local function lsp_configs()
   local vue_plugin = {
     name = "@vue/typescript-plugin",
     location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
     languages = { "vue" },
     configNamespase = "typescript",
   }
-  local configs = {
+  return {
     clangd = {
       cmd = { "clangd", "--header-insertion=never" },
+    },
+    pylsp = {
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = { enabled = false },
+            pyflakes = { enabled = false },
+          },
+        },
+      },
     },
     ts_ls = {
       init_options = {
@@ -53,9 +64,6 @@ function on_config()
       }
     },
   }
-  for server, config in pairs(configs) do
-    vim.lsp.config(server, config)
-  end
 end
 
 return {
@@ -76,17 +84,29 @@ return {
           },
         },
       },
-      { "neovim/nvim-lspconfig" },
+      {
+        "neovim/nvim-lspconfig",
+        config = function()
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          vim.lsp.config("*", {
+            capabilities = capabilities
+          })
+          local configs = lsp_configs()
+          for server, config in pairs(configs) do
+            vim.lsp.config(server, config)
+          end
+        end,
+      },
     },
-    config = function()
-      require("mason-lspconfig").setup {
-        ensure_installed = ensure_installed_servers,
-        automatic_enable = {
-          exclude = servers.disabled,
-        },
-      }
+    opts = {
+      ensure_installed = ensure_installed_servers,
+      automatic_enable = {
+        exclude = servers.disabled,
+      },
+    },
+    config = function(_, opts)
       vim.lsp.enable(servers.enabled)
-      on_config()
-    end
+      require("mason-lspconfig").setup(opts)
+    end,
   },
 }

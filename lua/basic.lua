@@ -9,21 +9,21 @@ if vim.g.neovide then
   -- 设置字体
   opt.guifont = {
     "Sarasa Mono Slab SC",
-    "IosevkaSlab Nerd Font",
-    "Source Han Sans SC",
-    ":h10"
+    "IosevkaSlabMono Nerd Font",
+    ":h10",
   }
 
   -- 自动隐藏光标
   vim.g.neovide_hide_mouse_when_typing = true
 end
 
--- jk移动时光标下上方保留8行
+-- 滚动时光标下上方保留8行
 opt.scrolloff = 8
 opt.sidescrolloff = 8
 
--- 使用相对号
+-- 显示行号
 opt.number = true
+-- 使用相对号
 opt.relativenumber = true
 
 -- 高亮所在行
@@ -103,7 +103,7 @@ opt.termguicolors = true
 
 -- 不可见字符的显示，这里只把空格显示为一个点
 opt.list = true
-opt.listchars = "trail:·"
+opt.listchars = "tab:󰌒 ,trail:·"
 
 -- 补全增强
 opt.wildmenu = true

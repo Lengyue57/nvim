@@ -45,7 +45,7 @@
   .
   "using"
   .
-  "namespace"
+  "namespace" @keyword.namespace
   .
   [
     (qualified_identifier)
@@ -86,6 +86,9 @@
 
 "operator" @function.builtin
 
+((identifier) @function.builtin
+  (#match? @function.builtin "^(static|dynamic|const|reinterpret)_cast$"))
+
 "static_assert" @function.builtin
 
 (call_expression
@@ -112,7 +115,8 @@
 
 (call_expression
   (template_function
-    (identifier) @function.call))
+    (identifier) @function.call
+    (#not-match? @function.call "^(static|dynamic|const|reinterpret)_cast$")))
 
 (call_expression
   (qualified_identifier
@@ -281,5 +285,11 @@
   ."module" @keyword.module
   name: (module_name) @module)
 
+(module_name
+  (identifier) @module)
+
 (export_declaration
   ."export" @keyword.export)
+
+(import_declaration
+  ."import" @keyword.import)
