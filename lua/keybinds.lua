@@ -119,3 +119,5 @@ keymap("v", "<", "<gv", noremap)
 keymap("v", ">", ">gv", noremap)
 
 keymap("n", "<C-\\>", "<CMD>Ex<CR>", noremap)
+
+keymap("", "<D-q>", "", noremap)

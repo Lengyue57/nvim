@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 -- Bootstrap lazy.nvim
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazy_path) then
