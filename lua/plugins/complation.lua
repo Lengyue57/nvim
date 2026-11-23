@@ -7,6 +7,9 @@ return {
     "CmdlineEnter",
   },
   dependencies = { "rafamadriz/friendly-snippets" },
+  init = function()
+    require("lsp").add_capabilities("blink.cmp", require("blink.cmp").get_lsp_capabilities(nil, true))
+  end,
   opts = {
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = {

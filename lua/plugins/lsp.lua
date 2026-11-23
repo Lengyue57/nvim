@@ -7,10 +7,10 @@ local ensure_installed_servers = {
 
 local servers = {
   enabled = {
-    "clangd",
     "gdscript",
   },
   disabled = {
+    "clangd",
     "ts_ls",
   },
 }
@@ -87,10 +87,7 @@ return {
       {
         "neovim/nvim-lspconfig",
         config = function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          vim.lsp.config("*", {
-            capabilities = capabilities
-          })
+          require("lsp").setup_capabilities()
           local configs = lsp_configs()
           for server, config in pairs(configs) do
             vim.lsp.config(server, config)
